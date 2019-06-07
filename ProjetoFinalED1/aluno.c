@@ -1,11 +1,22 @@
+
 //Aluno
 
-void matriculaCurso();
+void matriculaCurso(){
 
-void matriculaDisciplina();
+}
 
-void cancelarDisciplina();
+void matriculaDisciplina(){
 
-void historicoCompleto();
+}
 
-void historicoSemestre();
+void cancelarDisciplina(){
+
+}
+
+void historicoCompleto(){
+
+}
+
+void historicoSemestre(){
+
+}
