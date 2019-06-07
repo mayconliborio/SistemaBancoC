@@ -9,7 +9,7 @@ typedef struct tipoAluno{
     struct tipoAproveitamento *aproveitamento;
 }aluno;
 
-typedef struct tipoApoveitamento{
+typedef struct tipoAproveitamento{
     float notas[3];
     float frequencia;
     struct tipoTurma *turma;
@@ -94,10 +94,10 @@ disciplina* insereDisciplina(disciplina *listaDisciplina, int codigo, int cargaH
     return listaDisciplina;
 }
 
-professor* insereProfessor(professor *listaProfessor, nome[], int anoEntrada){
+professor* insereProfessor(professor *listaProfessor,char nome[80], int anoEntrada){
     if(listaProfessor==NULL){
         listaProfessor=(professor*)malloc(sizeof(professor));
-        strcpy(listaProfessor->nome,nome);
+        strcpy(listaProfessor->nome, nome);
         listaProfessor->anoEntrada=anoEntrada;
         listaProfessor->prox=NULL;
         return listaProfessor;
@@ -125,7 +125,7 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
         listaTurmas->prox=NULL;
         return listaTurmas;
     }
-    turma *aux=listasTurmas;
+    turma *aux=listaTurmas;
     while(aux->prox!=NULL){
         if(aux->codigo=codigo){
             printf("Turma já existe \n");
@@ -168,7 +168,7 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
 aproveitamento* insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
     if(oAluno->aproveitamento==NULL){
         oAluno->aproveitamento=(aproveitamento*)malloc(sizeof(aproveitamento));
-        (oAluno->aproveitamento)->frequencia=0;
+        (oAluno->aproveitamento)->frequencia=0.00;
         (oAluno->aproveitamento)->turma=aTurma;
         (oAluno->aproveitamento)->prox=NULL;
         return oAluno;
