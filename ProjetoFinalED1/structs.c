@@ -147,6 +147,26 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
     return listaTurmas;
 }
 
+void imprimeTurma(turma* aTurma){
+    printf("codigo: %d \nano: %d \nsemestre: %s \nsituação: %s \nprofessor: %s \ndisciplina %s \n",
+     aTurma->codigo,
+     aTurma->ano,
+     aTurma->semestre,
+     aTurma->situacao,
+    (aTurma->professor)->nome,
+    (aTurma->disciplina)->nome);
+}
+
+turma* buscaTurma(turma* listaTurmas, int cod){
+    turma *aux=listaTurmas;
+    while(aux!=NULL){
+        if(aux->codigo==cod){
+            return aux;
+        }
+        aux=aux->prox;
+    }
+    return NULL;
+}
 
 
 
@@ -185,4 +205,15 @@ aproveitamento* insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
     aux->turma=aTurma;
     aux->prox=NULL;
     return oAluno;
+}
+
+disciplina* buscaDisciplina(disciplina* listaDisciplinas, int cod){
+    disciplina *aux=listaDisciplinas;
+    while(aux!=NULL){
+        if(aux->codigo==cod){
+            return aux;
+        }
+        aux=aux->prox;
+    }
+    return NULL;
 }
