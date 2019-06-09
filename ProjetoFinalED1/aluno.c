@@ -1,5 +1,5 @@
-
 //Aluno
+#include "structs.c"
 
 void cancelarDisciplina(){
 
@@ -49,9 +49,9 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
     }
     if(aTurma->alunos==NULL){
         aTurma->alunos=(aluno*)malloc(sizeof(aluno)*45);
-        aTurma->(alunos)=oAluno;
+        aTurma->alunos=oAluno;
         for(i=1;i<45;i++){
-            aTurma->(alunos+i)=NULL;
+            aTurma->alunos+i=NULL;
         }
         return;
     }
