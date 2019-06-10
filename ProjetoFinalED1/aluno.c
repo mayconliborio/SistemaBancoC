@@ -1,6 +1,5 @@
 //Aluno
 #include "structs.c"
-
 void cancelarDisciplina(){
 
 }
