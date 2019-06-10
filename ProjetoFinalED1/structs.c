@@ -187,13 +187,13 @@ turma* buscaTurma(turma* listaTurmas, int cod){
 
 
 
-aproveitamento* insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
+void insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
     if(oAluno->aproveitamento==NULL){
         oAluno->aproveitamento=(aproveitamento*)malloc(sizeof(aproveitamento));
         (oAluno->aproveitamento)->frequencia=0.00;
         (oAluno->aproveitamento)->turma=aTurma;
         (oAluno->aproveitamento)->prox=NULL;
-        return oAluno;
+        return;
     }
     aproveitamento *aux=(oAluno->aproveitamento);
     while(aux->prox!=NULL){
@@ -204,7 +204,7 @@ aproveitamento* insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
     aux->frequencia=0;
     aux->turma=aTurma;
     aux->prox=NULL;
-    return oAluno;
+    return;
 }
 
 disciplina* buscaDisciplina(disciplina* listaDisciplinas, int cod){
