@@ -1,6 +1,5 @@
 //Aluno
 #include "structs.c"
-
 void cancelarDisciplina(){
 
 }
@@ -48,21 +47,34 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
         return;
     }
     if(aTurma->alunos==NULL){
+<<<<<<< HEAD
         aTurma->alunos=(aluno*)calloc(45, sizeof(aluno));
       //  aTurma->alunos=NULL;
         aTurma->alunos=oAluno;
+=======
+        aTurma->alunos=(aluno*)malloc(sizeof(aluno)*45);
+        aTurma->alunos[i]=oAluno;
+>>>>>>> f665e263329372d9fcc5b1f4afe6a57bc88cb905
         for(i=1;i<45;i++){
-            aTurma->alunos+i=NULL;
+            aTurma->alunos[i]=NULL;
         }
         return;
     }
     for(i=0;i<45;i++){
+<<<<<<< HEAD
         if( (aTurma->alunos[i]).ra == (oAluno)->ra ){
+=======
+        if((aTurma->alunos[i])->ra==oAluno->ra){
+>>>>>>> f665e263329372d9fcc5b1f4afe6a57bc88cb905
             printf("Aluno já matriculado nesta turma\n");
             return;
         }
         if(aTurma->alunos[i]==NULL){
+<<<<<<< HEAD
             (aTurma->alunos[i])=oAluno;
+=======
+            aTurma->alunos[i]=oAluno;
+>>>>>>> f665e263329372d9fcc5b1f4afe6a57bc88cb905
             return;
         }
     }
@@ -93,7 +105,11 @@ void imprimeTurmasDisponiveis(turma* listaTurmas){
         z=strcasecmp(listaTurmas->situacao,"encerrada");        
         if(j!=0 && z!=0){
             for(i=0;i<45;i++){
+<<<<<<< HEAD
                 if(*(listaTurmas->alunos[i])==oAluno){
+=======
+                if(listaTurmas->alunos[i]==NULL){
+>>>>>>> f665e263329372d9fcc5b1f4afe6a57bc88cb905
                     controle=1;
                     i=45;
                 }
