@@ -49,19 +49,19 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
     }
     if(aTurma->alunos==NULL){
         aTurma->alunos=(aluno*)malloc(sizeof(aluno)*45);
-        aTurma->(alunos)=oAluno;
+        aTurma->alunos[i]=oAluno;
         for(i=1;i<45;i++){
-            aTurma->(alunos+i)=NULL;
+            aTurma->alunos[i]=NULL;
         }
         return;
     }
     for(i=0;i<45;i++){
-        if((aTurma->(alunos+i))->ra==oAluno->ra){
+        if((aTurma->alunos[i])->ra==oAluno->ra){
             printf("Aluno já matriculado nesta turma\n");
             return;
         }
-        if(aTurma->(alunos+i)==NULL){
-            aTurma->(alunos+i)=oAluno;
+        if(aTurma->alunos[i]==NULL){
+            aTurma->alunos[i]=oAluno;
             return;
         }
     }
@@ -92,7 +92,7 @@ void imprimeTurmasDisponiveis(turma* listaTurmas){
         z=strcasecmp(listaTurmas->situacao,"encerrada");        
         if(j!=0 && z!=0){
             for(i=0;i<45;i++){
-                if(listaTurmas->(alunos+i)==NULL){
+                if(listaTurmas->alunos[i]==NULL){
                     controle=1;
                     i=45;
                 }

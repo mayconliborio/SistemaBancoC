@@ -23,7 +23,7 @@ typedef struct tipoTurma{
     char situacao[20];
     struct tipoProfessor *professor;
     struct tipoDisciplina *disciplina;
-    struct tipoAluno *alunos;
+    struct tipoAluno *alunos[45];
     struct tipoTurma *prox;
 }turma;
 
