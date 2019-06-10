@@ -123,6 +123,7 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
         strcpy(listaTurmas->situacao,situacao);
         listaTurmas->disciplina=aDisciplina;
         listaTurmas->professor=oProfessor;
+        listaTurmas->alunos[0]=NULL;
         listaTurmas->prox=NULL;
         return listaTurmas;
     }
@@ -143,6 +144,7 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
     strcpy(aux->situacao,situacao);
     aux->professor=oProfessor;
     aux->disciplina=aDisciplina;
+    aux->alunos[0]=NULL;
     aux->prox=NULL;
     return listaTurmas;
 }

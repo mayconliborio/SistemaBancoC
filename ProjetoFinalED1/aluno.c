@@ -46,8 +46,7 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
         printf("Turmas indisponíveis para matricula\n");
         return;
     }
-    if(aTurma->alunos==NULL){
-        aTurma->alunos=(aluno*)malloc(sizeof(aluno)*45);
+    if(aTurma->alunos[0]==NULL){
         aTurma->alunos[i]=oAluno;
         for(i=1;i<45;i++){
             aTurma->alunos[i]=NULL;
