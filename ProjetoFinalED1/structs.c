@@ -44,18 +44,18 @@ typedef struct tipoProfessor{
 }professor;
 
 
-aluno* insereAluno(aluno* listaAluno,char nome[],unsigned long int ra){
+aluno* insereAluno(aluno* listaAluno,char nome[],char ra[]){
     if(listaAluno==NULL){
         listaAluno=(aluno*)malloc(sizeof(aluno));
         strcpy(listaAluno->nome, nome);
-        listaAluno->ra=ra;
+        strcpy(listaAluno->ra,ra);
         listaAluno->prox=NULL;
         listaAluno->aproveitamento=NULL;
         return listaAluno;
     }
     aluno *aux=listaAluno;
     while(aux->prox!=NULL){
-        if(aux->ra==ra){
+        if(strcmp(aux->ra,ra)==0){
             printf("Aluno já existe \n");
             return listaAluno;
         }
@@ -64,7 +64,7 @@ aluno* insereAluno(aluno* listaAluno,char nome[],unsigned long int ra){
     aux->prox=(aluno*)malloc(sizeof(aluno));
     aux=aux->prox;
     strcpy(aux->nome,nome);
-    aux->ra=ra;
+    strcpy(aux->ra, ra);
     aux->prox=NULL;
     aux->aproveitamento=NULL;
     return listaAluno;

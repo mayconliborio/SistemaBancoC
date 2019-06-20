@@ -54,7 +54,7 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
         return;
     }
     for(i=0;i<45;i++){
-        if((aTurma->alunos[i])->ra==oAluno->ra){
+        if(strcmp((aTurma->alunos[i])->ra,oAluno->ra)==0){
             printf("Aluno já matriculado nesta turma\n");
             return;
         }
@@ -68,10 +68,10 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
 }
 
 
-aluno* buscaAluno(aluno* listaAlunos, unsigned long int ra){
+aluno* buscaAluno(aluno* listaAlunos, char ra[]){
     aluno *aux=listaAlunos;
     while(aux!=NULL){
-        if(aux->ra==ra){
+        if(strcmp(aux->ra, ra)==0){
             return aux;
         }
         aux=aux->prox;
