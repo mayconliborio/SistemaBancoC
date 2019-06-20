@@ -4,7 +4,7 @@
 
 typedef struct tipoAluno{
     char nome [80];
-    unsigned long int ra;
+    char ra[11];
     struct tipoAluno *prox;
     struct tipoAproveitamento *aproveitamento;
 }aluno;
@@ -169,25 +169,6 @@ turma* buscaTurma(turma* listaTurmas, int cod){
     }
     return NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
     if(oAluno->aproveitamento==NULL){
