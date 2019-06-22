@@ -19,8 +19,8 @@ typedef struct tipoAproveitamento{
 typedef struct tipoTurma{
     int codigo;
     int ano;
-    char semestre[20];
-    char situacao[20];
+    char semestre;
+    char situacao;
     struct tipoProfessor *professor;
     struct tipoDisciplina *disciplina;
     struct tipoAluno *alunos[45];
@@ -94,11 +94,12 @@ disciplina* insereDisciplina(disciplina *listaDisciplina, int codigo, int cargaH
     return listaDisciplina;
 }
 
-professor* insereProfessor(professor *listaProfessor,char nome[80], int anoEntrada){
+professor* insereProfessor(professor *listaProfessor,char nome[80], int anoEntrada, int anoSaida){
     if(listaProfessor==NULL){
         listaProfessor=(professor*)malloc(sizeof(professor));
         strcpy(listaProfessor->nome, nome);
         listaProfessor->anoEntrada=anoEntrada;
+        listaProfessor->anoSaida=anoSaida;
         listaProfessor->prox=NULL;
         return listaProfessor;
     }
@@ -110,17 +111,18 @@ professor* insereProfessor(professor *listaProfessor,char nome[80], int anoEntra
     aux=aux->prox;
     strcpy(aux->nome,nome);
     aux->anoEntrada=anoEntrada;
+    aux->anoSaida=anoSaida;
     aux->prox=NULL;
     return listaProfessor;
 }
 
-turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char situacao[],professor *oProfessor, disciplina *aDisciplina){
+turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre, char situacao, professor *oProfessor, disciplina *aDisciplina){
     if(listaTurmas==NULL){
         listaTurmas=(turma*)malloc(sizeof(turma));
         listaTurmas->codigo=codigo;
         listaTurmas->ano=ano;
-        strcpy(listaTurmas->semestre,semestre);
-        strcpy(listaTurmas->situacao,situacao);
+        listaTurmas->semestre=semestre;
+        listaTurmas->situacao=situacao;
         listaTurmas->disciplina=aDisciplina;
         listaTurmas->professor=oProfessor;
         listaTurmas->alunos[0]=NULL;
@@ -140,8 +142,8 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
     aux=aux->prox;
     aux->codigo=codigo;
     aux->ano=ano;
-    strcpy(aux->semestre,semestre);
-    strcpy(aux->situacao,situacao);
+    aux->semestre=semestre;
+    aux->situacao=situacao;
     aux->professor=oProfessor;
     aux->disciplina=aDisciplina;
     aux->alunos[0]=NULL;
@@ -150,7 +152,7 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre[], char 
 }
 
 void imprimeTurma(turma* aTurma){
-    printf("codigo: %d \nano: %d \nsemestre: %s \nsituação: %s \nprofessor: %s \ndisciplina %s \n",
+    printf("codigo: %d \nano: %d \nsemestre: %c \nsituação: %c \nprofessor: %s \ndisciplina %s \n",
      aTurma->codigo,
      aTurma->ano,
      aTurma->semestre,

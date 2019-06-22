@@ -17,13 +17,11 @@ void verHistoricoCompleto(aluno* oAluno){
     }
 }
 
-void verHistoricoPorSemestre(aluno* oAluno,char semestre[20]){
-    int j=10;
+void verHistoricoPorSemestre(aluno* oAluno, char semestre){
     int cont=0;
     aluno *aux=oAluno;
     while(aux->aproveitamento!=NULL){
-        j=strcasecmp(((aux->aproveitamento)->turma)->semestre,semestre);
-        if(j==0){
+        if((((aux->aproveitamento)->turma)->semestre) == semestre){
             printf("notas: %f %f %f \nfrequencia: %f \n turma: %s",
             (aux->aproveitamento)->notas[0],
             (aux->aproveitamento)->notas[1],
@@ -38,11 +36,10 @@ void verHistoricoPorSemestre(aluno* oAluno,char semestre[20]){
 
 void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
     int i=0;
-    int j=10;
-    int z=5;
-    j=strcasecmp(aTurma->situacao,"cancelada");
-    z=strcasecmp(aTurma->situacao,"encerrada");
-    if(j==0||z==0){
+    char sit;
+    sit=aTurma->situacao;
+
+    if( sit == 'C' || sit == 'E'){
         printf("Turmas indisponíveis para matricula\n");
         return;
     }
@@ -54,7 +51,7 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
         return;
     }
     for(i=0;i<45;i++){
-        if(strcmp((aTurma->alunos[i])->ra,oAluno->ra)==0){
+        if(strcmp((aTurma->alunos[i])->ra, oAluno->ra)==0){
             printf("Aluno já matriculado nesta turma\n");
             return;
         }
@@ -81,14 +78,13 @@ aluno* buscaAluno(aluno* listaAlunos, char ra[]){
 
 void imprimeTurmasDisponiveis(turma* listaTurmas){
     if(listaTurmas==NULL) return;
-    int j=5;
-    int z=5;
+    char sit;
     int i=0;
     int controle=0;
+
     while(listaTurmas->prox!=NULL){
-        j=strcasecmp(listaTurmas->situacao,"cancelada");
-        z=strcasecmp(listaTurmas->situacao,"encerrada");        
-        if(j!=0 && z!=0){
+       
+       if(sit != 'C' && sit != 'E'){
             for(i=0;i<45;i++){
                 if(listaTurmas->alunos[i]==NULL){
                     controle=1;
