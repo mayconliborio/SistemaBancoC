@@ -1,5 +1,4 @@
 //Aluno
-#include "structs.c"
 void cancelarDisciplina(){
 
 }
@@ -33,7 +32,7 @@ void verHistoricoPorSemestre(aluno* oAluno, char semestre){
         cont++;
     }
 }
-
+/*
 void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
     int i=0;
     char sit;
@@ -43,7 +42,7 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
         printf("Turmas indisponíveis para matricula\n");
         return;
     }
-    if(aTurma->alunos[0]==NULL){
+    if(aTurma->alunos==NULL){
         aTurma->alunos[i]=oAluno;
         for(i=1;i<45;i++){
             aTurma->alunos[i]=NULL;
@@ -63,7 +62,7 @@ void insereAlunonaTurma(aluno* oAluno, turma* aTurma){
     printf("Turma está cheia\n");
     return;
 }
-
+*/
 
 aluno* buscaAluno(aluno* listaAlunos, char ra[]){
     aluno *aux=listaAlunos;
@@ -76,6 +75,7 @@ aluno* buscaAluno(aluno* listaAlunos, char ra[]){
     return NULL;
 }
 
+/*
 void imprimeTurmasDisponiveis(turma* listaTurmas){
     if(listaTurmas==NULL) return;
     char sit;
@@ -98,3 +98,4 @@ void imprimeTurmasDisponiveis(turma* listaTurmas){
         listaTurmas=listaTurmas->prox;
     }
 }
+*/

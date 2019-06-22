@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-#include "aluno.c"
-#include "professor.c"
-#include "login.c"
-#include "valida.c" 
-#include "carrega.c"
+#include <stdlib.h>
+#include "Bibliotecas/structs.c"
+#include "Bibliotecas/aluno.c"
+#include "Bibliotecas/professor.c"
+#include "Bibliotecas/gerenciador.c"
+#include "Bibliotecas/login.c"
+#include "Bibliotecas/valida.c" 
+#include "Bibliotecas/carrega.c"
 
 int main(){
 
@@ -12,14 +15,12 @@ int main(){
 	professor *listaProfessores = NULL;
 	disciplina *listaDisciplinas = NULL;
 	turma *listaTurmas = NULL;
-
-	carregaArquivos(listaAlunos, listaProfessores, listaDisciplinas, listaTurmas);
-
-	imprimeTurma(listaTurmas);
-	
-
 	int a;
 	char login[80], senha[80], enter;
+
+	carregaArquivos(&listaAlunos, &listaProfessores, &listaDisciplinas, &listaTurmas);
+
+	imprimeTurma(listaTurmas);
 	
 	while(1){
 		system("clear");
@@ -50,10 +51,12 @@ int main(){
 		switch (a){
 
 			case 0:{
+				int x=verificaLogin(login, senha);
+
 				cifraCesar(login);
 				cifraCesar(senha);
 
-				switch(verificaLogin(login, senha)){
+				switch(x){
 					case 1:{
 						int esc=1;
 						aluno *oAluno=buscaAluno(listaAlunos, cifraReversa(login));

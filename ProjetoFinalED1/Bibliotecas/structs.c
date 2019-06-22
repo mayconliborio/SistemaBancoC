@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 typedef struct tipoAluno{
     char nome [80];
     char ra[11];
@@ -23,7 +19,7 @@ typedef struct tipoTurma{
     char situacao;
     struct tipoProfessor *professor;
     struct tipoDisciplina *disciplina;
-    struct tipoAluno *alunos[45];
+    struct tipoAluno *alunos;
     struct tipoTurma *prox;
 }turma;
 
@@ -43,122 +39,154 @@ typedef struct tipoProfessor{
     struct tipoProfessor *prox;
 }professor;
 
+aluno *alocaAluno(){
+    aluno *no=(aluno*)malloc(sizeof(aluno));
+    return no;
+}
 
-aluno* insereAluno(aluno* listaAluno,char nome[],char ra[]){
+professor *alocaProfessor(){
+    professor *no=(professor*)malloc(sizeof(professor));
+    return no;
+}
+
+disciplina *alocaDisciplina(){
+    disciplina *no=(disciplina*)malloc(sizeof(disciplina));
+    return no;
+}
+
+turma *alocaTurma(){
+    turma *no=(turma*)malloc(sizeof(turma));
+    return no;
+}
+
+aluno* insereAluno(aluno* listaAluno, char nome[], char ra[]){
+    aluno *no=alocaAluno();
+    aluno *aux=listaAluno;
+
+    strcpy(no->nome, nome);
+    strcpy(no->ra,ra);
+    no->prox=NULL;
+    no->aproveitamento=NULL;
+
     if(listaAluno==NULL){
-        listaAluno=(aluno*)malloc(sizeof(aluno));
-        strcpy(listaAluno->nome, nome);
-        strcpy(listaAluno->ra,ra);
-        listaAluno->prox=NULL;
-        listaAluno->aproveitamento=NULL;
+        printf("\n\nAluno cadastrado com sucesso!\n");
+        listaAluno=no;
         return listaAluno;
     }
-    aluno *aux=listaAluno;
+
     while(aux->prox!=NULL){
         if(strcmp(aux->ra,ra)==0){
-            printf("Aluno já existe \n");
+            printf("\n\nAluno já existe \n");
+            free(no);
             return listaAluno;
         }
         aux=aux->prox;
     }
-    aux->prox=(aluno*)malloc(sizeof(aluno));
-    aux=aux->prox;
-    strcpy(aux->nome,nome);
-    strcpy(aux->ra, ra);
-    aux->prox=NULL;
-    aux->aproveitamento=NULL;
+
+    aux->prox=no;
+
+    printf("\n\nAluno cadastrado com sucesso!\n");
     return listaAluno;
 }
 
-
-
 disciplina* insereDisciplina(disciplina *listaDisciplina, int codigo, int cargaHoraria, char nome[]){
+    disciplina *no=alocaDisciplina();
+    disciplina *aux=listaDisciplina;
+
+    no->codigo=codigo;
+    no->cargaHoraria=cargaHoraria;
+    strcpy(no->nome, nome);
+    no->prox=NULL;
+
     if(listaDisciplina==NULL){
-        listaDisciplina=(disciplina*)malloc(sizeof(disciplina));
-        listaDisciplina->codigo=codigo;
-        listaDisciplina->cargaHoraria=cargaHoraria;
-        strcpy(listaDisciplina->nome, nome);
-        listaDisciplina->prox=NULL;
+        listaDisciplina=aux;
         return listaDisciplina;
     }
-    disciplina *aux=listaDisciplina;
+
     while(aux->prox!=NULL) {
+        if(aux->codigo == codigo){
+            printf("Disciplina ja cadastrada! \n");
+            free(no);
+            return listaDisciplina;
+        }
+
         aux=aux->prox;
     }
-    aux->prox=(disciplina*)malloc(sizeof(disciplina));
-    aux=aux->prox;
-    aux->codigo=codigo;
-    aux->cargaHoraria=cargaHoraria;
-    strcpy(aux->nome,nome);
-    aux->prox=NULL;
+
+    aux->prox=no;
     return listaDisciplina;
 }
 
 professor* insereProfessor(professor *listaProfessor,char nome[80], int anoEntrada, int anoSaida){
+    professor *no=alocaProfessor();
+    professor *aux=listaProfessor;
+
+    strcpy(no->nome, nome);
+    no->anoEntrada=anoEntrada;
+    no->anoSaida=anoSaida;
+    no->turmas=NULL;
+    no->prox=NULL;
+
     if(listaProfessor==NULL){
-        listaProfessor=(professor*)malloc(sizeof(professor));
-        strcpy(listaProfessor->nome, nome);
-        listaProfessor->anoEntrada=anoEntrada;
-        listaProfessor->anoSaida=anoSaida;
-        listaProfessor->prox=NULL;
+        listaProfessor=no;
         return listaProfessor;
     }
-    professor *aux=listaProfessor;
+    
     while(aux->prox!=NULL){
+        if(strcmp(aux->nome, nome)==0){
+            free(no);
+            return listaProfessor;
+        }
         aux=aux->prox;
     }
-    aux->prox=(professor*)malloc(sizeof(professor));
-    aux=aux->prox;
-    strcpy(aux->nome,nome);
-    aux->anoEntrada=anoEntrada;
-    aux->anoSaida=anoSaida;
-    aux->prox=NULL;
+
+    no->prox=no;
     return listaProfessor;
 }
 
 turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre, char situacao, professor *oProfessor, disciplina *aDisciplina){
+    turma *no=alocaTurma();
+    turma *aux=listaTurmas;
+
+    no->codigo=codigo;
+    no->ano=ano;
+    no->semestre=semestre;
+    no->situacao=situacao;
+    no->disciplina=aDisciplina;
+    no->professor=oProfessor;
+    no->alunos=NULL;
+    no->prox=NULL;
+
     if(listaTurmas==NULL){
-        listaTurmas=(turma*)malloc(sizeof(turma));
-        listaTurmas->codigo=codigo;
-        listaTurmas->ano=ano;
-        listaTurmas->semestre=semestre;
-        listaTurmas->situacao=situacao;
-        listaTurmas->disciplina=aDisciplina;
-        listaTurmas->professor=oProfessor;
-        listaTurmas->alunos[0]=NULL;
-        listaTurmas->prox=NULL;
+        listaTurmas=no;
         return listaTurmas;
     }
-    turma *aux=listaTurmas;
-    while(aux->prox!=NULL){
-        if(aux->codigo=codigo){
-            printf("Turma já existe \n");
-            return listaTurmas;
-        }
-        aux=aux->prox;
 
+    while(aux->prox!=NULL){
+      //  if(aux->codigo=codigo &&){
+        //    printf("Turma já existe \n");
+          //  free(no);
+            //return listaTurmas;
+        //}
+        aux=aux->prox;
     }
-    aux->prox=(turma*)malloc(sizeof(turma));
-    aux=aux->prox;
-    aux->codigo=codigo;
-    aux->ano=ano;
-    aux->semestre=semestre;
-    aux->situacao=situacao;
-    aux->professor=oProfessor;
-    aux->disciplina=aDisciplina;
-    aux->alunos[0]=NULL;
-    aux->prox=NULL;
+
+    aux->prox=no;
     return listaTurmas;
 }
 
 void imprimeTurma(turma* aTurma){
+    if(aTurma==NULL){
+        printf("Deu ruim!");
+    }
+
     printf("codigo: %d \nano: %d \nsemestre: %c \nsituação: %c \nprofessor: %s \ndisciplina %s \n",
-     aTurma->codigo,
-     aTurma->ano,
-     aTurma->semestre,
-     aTurma->situacao,
-    (aTurma->professor)->nome,
-    (aTurma->disciplina)->nome);
+       aTurma->codigo,
+       aTurma->ano,
+       aTurma->semestre,
+       aTurma->situacao,
+       (aTurma->professor)->nome,
+       (aTurma->disciplina)->nome);
 }
 
 turma* buscaTurma(turma* listaTurmas, int cod){
