@@ -45,7 +45,7 @@ void carregaTurmas(turma **listaTurmas){
 	fclose(arq);
 }
 
-void carregaArquivos(aluno **alu, professor **pro, disciplina **dis, turma **tur){	
+void carregaArquivos(aluno **alu, professor **pro, disciplina **dis, turma **tur){
 	carregaAlunos(&(*alu));
 	carregaProfessores(&(*pro));
 	carregaDisciplinas(&(*dis));

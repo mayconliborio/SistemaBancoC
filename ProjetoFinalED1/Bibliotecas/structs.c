@@ -59,6 +59,11 @@ turma *alocaTurma(){
     return no;
 }
 
+aproveitamento *alocaAproveitamento(){
+    aproveitamento *no=(aproveitamento*)malloc(sizeof(aproveitamento));
+    return no;
+}
+
 aluno* insereAluno(aluno* listaAluno, char nome[], char ra[]){
     aluno *no=alocaAluno();
     aluno *aux=listaAluno;
@@ -87,6 +92,28 @@ aluno* insereAluno(aluno* listaAluno, char nome[], char ra[]){
 
     printf("\n\nAluno cadastrado com sucesso!\n");
     return listaAluno;
+}
+
+void removeAluno(aluno *alunos, char ra[]){
+    aluno *aux, *aux2;
+    int v=0;
+
+    if(aux==NULL){
+        return;
+    }
+
+    while(aux!=NULL){
+        if(strcmp(aux->ra, ra)==0){
+            v=1;
+            break;
+        }
+        aux2=aux;
+        aux=aux->prox;
+    }
+    if(v=1){
+        aux2->prox=aux->prox;
+        free(aux);
+    }
 }
 
 disciplina* insereDisciplina(disciplina *listaDisciplina, int codigo, int cargaHoraria, char nome[]){
@@ -163,11 +190,11 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre, char si
     }
 
     while(aux->prox!=NULL){
-      //  if(aux->codigo=codigo &&){
-        //    printf("Turma já existe \n");
-          //  free(no);
-            //return listaTurmas;
-        //}
+        if(aux->codigo==codigo){
+            printf("Turma já existe \n");
+            free(no);
+            return listaTurmas;
+        }
         aux=aux->prox;
     }
 
@@ -180,13 +207,11 @@ void imprimeTurma(turma* aTurma){
         printf("Deu ruim!");
     }
 
-    printf("codigo: %d \nano: %d \nsemestre: %c \nsituação: %c \nprofessor: %s \ndisciplina %s \n",
-       aTurma->codigo,
-       aTurma->ano,
-       aTurma->semestre,
-       aTurma->situacao,
-       (aTurma->professor)->nome,
-       (aTurma->disciplina)->nome);
+    printf("codigo: %d \nano: %d \nsemestre: %c \nsituação: %c \n",
+     aTurma->codigo,
+     aTurma->ano,
+     aTurma->semestre,
+     aTurma->situacao);
 }
 
 turma* buscaTurma(turma* listaTurmas, int cod){
@@ -200,23 +225,26 @@ turma* buscaTurma(turma* listaTurmas, int cod){
     return NULL;
 }
 
-void insereAproveitamentonoAluno(aluno* oAluno, turma* aTurma){
-    if(oAluno->aproveitamento==NULL){
-        oAluno->aproveitamento=(aproveitamento*)malloc(sizeof(aproveitamento));
-        (oAluno->aproveitamento)->frequencia=0.00;
-        (oAluno->aproveitamento)->turma=aTurma;
-        (oAluno->aproveitamento)->prox=NULL;
+void insereAproveitamentoAluno(aluno* oAluno, turma* aTurma){
+    aproveitamento *no=alocaAproveitamento();
+    aproveitamento *aux=oAluno->aproveitamento;
+
+    no->notas[0]=-1;
+    no->notas[1]=-1;
+    no->notas[2]=-1;
+    no->frequencia=0.00;
+    no->turma=aTurma;
+    no->prox=NULL;
+
+    if(aux==NULL){
+        aux=no;
         return;
     }
-    aproveitamento *aux=(oAluno->aproveitamento);
+
     while(aux->prox!=NULL){
         aux=aux->prox;
     }
-    aux->prox=(aproveitamento*)malloc(sizeof(aproveitamento));
-    aux=aux->prox;
-    aux->frequencia=0;
-    aux->turma=aTurma;
-    aux->prox=NULL;
+    aux->prox=no;
     return;
 }
 

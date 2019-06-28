@@ -81,12 +81,22 @@ int main(){
 								}
 
 								case 2:{
+									char disciplina[80];
 
+									printf("Digite o nome da disciplina: ");
+									fgets(disciplina, 80, stdin);
+									corrigeString(disciplina);
+									matriculaDisciplina(listaTurmas, oAluno, disciplina);
 									break;
 								}
 
 								case 3:{
+									char disciplina[80];
 
+									printf("Digite o nome da disciplina: ");
+									fgets(disciplina, 80, stdin);
+									corrigeString(disciplina);
+									cancelarDisciplina(oAluno, disciplina);
 									break;
 								}
 
@@ -300,9 +310,6 @@ int main(){
 					corrigeString(ra);
 				}while(validaLogin(ra));
 
-				cifraCesar(ra);
-
-
 				if (buscaAluno(listaAlunos, ra) != NULL){
 					do{
 						printf("\n\nNova Senha: ");
@@ -310,6 +317,7 @@ int main(){
 						corrigeString(senha);
 					}while(validaSenha(senha)==1);
 
+					cifraCesar(ra);
 					cifraCesar(senha);
 
 					v=cadastroLogin(a, "nome", ra, senha);
