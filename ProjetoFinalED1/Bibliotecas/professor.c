@@ -21,7 +21,6 @@ void inserirNotas(aluno *oAluno, float aNota, turma *aTurma, int ordemNota){
         }
     }
     printf("\nAluno não cadastrado nesta turma!\n");
-    return;
 }
 
 void alterarNotas(aluno *oAluno, float novaNota,turma *aTurma,int ordemNota){
@@ -48,8 +47,6 @@ void alterarNotas(aluno *oAluno, float novaNota,turma *aTurma,int ordemNota){
         }
     }
     printf("\nAluno não cadastrado nesta turma!\n");
-    return;
-
 }
 
 void inserirFrequencia(aluno *oAluno,turma *aTurma){
@@ -73,8 +70,6 @@ void inserirFrequencia(aluno *oAluno,turma *aTurma){
         }
     }
     printf("\nAluno não cadastrado nesta turma!\n");
-    return;
-
 }
 
 void alterarFrequencia(aluno *oAluno,turma *aTurma, float novaFrenquencia){
@@ -98,9 +93,6 @@ void alterarFrequencia(aluno *oAluno,turma *aTurma, float novaFrenquencia){
         }
     }
     printf("\nAluno não cadastrado nesta turma!\n");
-    return;
-
-
 }
 
 void desempenhoAlunoSemestre(){
