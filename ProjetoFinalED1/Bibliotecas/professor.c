@@ -157,15 +157,125 @@ void desempenhoTurmaSemestre(turma *aTurma){
 
 }
 
-void alunosAprovadosPorDisciplina(){
+void alunosAprovadosPorDisciplina(turma *aTurma){
+    int i;
+    for(i=0;i<45;i++){
+        if((aTurma->alunos[i])!=NULL){
+            aproveitamento *aux=(aTurma->alunos[i])->aproveitamento;
+            aproveitamento *aux2=NULL;
+            while(aux->prox!=NULL){
+                if((aux->turma)->codigo==aTurma->codigo){
+                    printf("\nTurma encontrada\n");
+                    aux2=aux;
+                }
+                aux=aux->prox;
+            }
+            if(aux2==NULL){
+                printf("\nAluno não possui um aproveitamento com esta turma!\n");
+                return;
+            }
+            if(aux2->notas[0]==-1||aux2->notas[1]==-1||aux2->notas[2]==-1){
+                printf("\nAluno com notas incompletas!\n");
+            }
+            else{
+                float m=(aux2->notas[0]+aux2->notas[1]+aux2->notas[2])/3;
+                if(m>=6){
+                    printf("\nAluno: %sAprovado!\n",(aTurma->alunos[i])->nome);
+                }
+               
+            }
+        }
+        else{
+            printf("\nFim de Turma\n");
+            return;           
+        }
+        
+    }
 
 }
 
-void alunosReprovadosPorDisciplina(){
+void alunosReprovadosPorDisciplina(turma *aTurma){
+    int i;
+    for(i=0;i<45;i++){
+        if((aTurma->alunos[i])!=NULL){
+            aproveitamento *aux=(aTurma->alunos[i])->aproveitamento;
+            aproveitamento *aux2=NULL;
+            while(aux->prox!=NULL){
+                if((aux->turma)->codigo==aTurma->codigo){
+                    printf("\nTurma encontrada\n");
+                    aux2=aux;
+                }
+                aux=aux->prox;
+            }
+            if(aux2==NULL){
+                printf("\nAluno não possui um aproveitamento com esta turma!\n");
+                return;
+            }
+            if(aux2->notas[0]==-1||aux2->notas[1]==-1||aux2->notas[2]==-1){
+                printf("\nAluno com notas incompletas!\n");
+            }
+            else{
+                float m=(aux2->notas[0]+aux2->notas[1]+aux2->notas[2])/3;
+                if(m<6){
+                    printf("\nAluno: %sReprovado!\n",(aTurma->alunos[i])->nome);
+                }
+               
+            }
+        }
+        else{
+            printf("\nFim de Turma\n");
+            return;           
+        }
+        
+    }
 
 }
 
-void relatorioCompleto(){
+void relatorioCompleto(turma *aTurma){
+    int i;
+    for(i=0;i<45;i++){
+        if((aTurma->alunos[i])!=NULL){
+            aproveitamento *aux=(aTurma->alunos[i])->aproveitamento;
+            aproveitamento *aux2=NULL;
+            while(aux->prox!=NULL){
+                if((aux->turma)->codigo==aTurma->codigo){
+                    printf("\nTurma encontrada\n");
+                    aux2=aux;
+                }
+                aux=aux->prox;
+            }
+            if(aux2==NULL){
+                printf("\nAluno não possui um aproveitamento com esta turma!\n");
+                return;
+            }
+            if(aux2->notas[0]==-1||aux2->notas[1]==-1||aux2->notas[2]==-1){
+                printf("\nAluno: %scom notas incompletas!\n",(aTurma->alunos[i])->nome);
+            }
+            else{
+                float m=(aux2->notas[0]+aux2->notas[1]+aux2->notas[2])/3;
+                if(m>=6){
+                    printf("\nNota do aluno: %sProva1:%f\nProva2:%f\nProva3:%f",
+                    (aTurma->alunos[i])->nome,
+                    (aux2->notas[0],aux2->notas[1],aux2->notas[3]);
+                    printf("\nFrequencia do aluno: %s%f horas aulas assistidas\n",(aTurma->alunos[i])->nome,aux2->frequencia);
+                    printf("\nAluno: %s aprovado!\n",(aTurma->alunos[i])->nome);
+                }
+                else{
+                    printf("\nNota do aluno: %sProva1:%f\nProva2:%f\nProva3:%f",
+                    (aTurma->alunos[i])->nome,
+                    (aux2->notas[0],aux2->notas[1],aux2->notas[3]);
+                    printf("\nFrequencia do aluno: %s%f horas aulas assistidas\n",(aTurma->alunos[i])->nome,aux2->frequencia);
+                    printf("\nAluno: %s reprovado!\n",(aTurma->alunos[i])->nome);
+                }
+               
+            }
+        }
+        else{
+            printf("\nFim de Turma\n");
+            return;           
+        }
+        
+    }
 	
 }
 
