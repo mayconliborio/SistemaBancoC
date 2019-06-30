@@ -62,19 +62,48 @@ void verHistoricoPorSemestre(aluno* oAluno, char semestre){
     }
 }
 
-void matriculaDisciplina(turma *tur, aluno *oAluno, char nome[]){
-    turma *aux=tur;
 
+void insereAlunonaTurma(aluno* oAluno, turma* listaTurmas, int cod){
+    turma *aux=listaTurmas;
+    turma  *aTurma=NULL;
     while(aux!=NULL){
-        if(aux->situacao=='P' && strcmp(aux->disciplina->nome, nome)==0 && contaAlunos(aux->alunos)<45){
-            insereAluno(aux->alunos, oAluno->nome, oAluno->ra);
-            insereAproveitamentoAluno(oAluno, aux);
-            printf("Matricula na turma %d realizada com sucesso!\n\n", aux->codigo);
-            return;
+        if(((aux->disciplina)->cod)==cod){
+            aTurma=aux;
         }
         aux=aux->prox;
     }
-    printf("Nao ha vaga para a disciplina informada!\n\n");
+    if(aTurma==NULL){
+        printf("\nTurma não encontrada!\n");
+        return;
+    }
+    int i=0;
+    int j=10;
+    int z=5;
+    j=strcasecmp(aTurma->situacao,"P");
+    if(j!=0){
+        printf("Turmas indisponíveis para matricula\n");
+        return;
+    }
+    if(aTurma->alunos[i]==NULL){
+        aTurma->alunos[i]=oAluno;
+        for(i=1;i<45;i++){
+            aTurma->alunos[i]=NULL;
+        }
+        return;
+    }
+    for(i=0;i<45;i++){
+        if((aTurma->alunos[i])->ra==oAluno->ra){
+            printf("Aluno já matriculado nesta turma\n");
+            return;
+        }
+        if(aTurma->alunos[i]==NULL){
+            aTurma->alunos[i]=oAluno;
+            insereAproveitamentonoAluno(oAluno, aTurma);
+            return;
+        }
+    }
+    printf("Turma está cheia\n");
+    return;
 }
 
 aluno* buscaAluno(aluno* listaAlunos, char ra[]){
