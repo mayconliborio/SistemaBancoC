@@ -1,4 +1,16 @@
 //Aluno
+#include "login.c"
+
+void alteraDadosAlunos(aluno **oAluno, char nome[], char login[], char ant[], char nov[], int esc){
+    if(esc==1){
+        strcpy((*oAluno)->nome, nome);
+    }
+
+    if(esc==2){
+        alterarSenha(login, ant, nov);
+    }
+}
+
 void cancelarDisciplina(aluno *oAluno, char nome[]){
     aproveitamento *aux=oAluno->aproveitamento;
     aproveitamento *aux2;
@@ -7,9 +19,13 @@ void cancelarDisciplina(aluno *oAluno, char nome[]){
     while(aux!=NULL){
         if(strcmp(aux->turma->disciplina->nome, nome)==0){
             if(aux->notas[0]==-1 && aux->notas[1]==-1 && aux->notas[2]==-1){
-                removeAluno(aux->turma->alunos, oAluno->ra);
-                v=1;
-                break;
+                for(int i=0; i<45; i++){
+                    if(aux->turma->alunos[i]==oAluno){
+                        aux->turma->alunos[i]=NULL;
+                        v=1;
+                        break;
+                    }
+                }
             }
         }
         aux2=aux;
@@ -21,21 +37,10 @@ void cancelarDisciplina(aluno *oAluno, char nome[]){
     }
 }
 
-int contaAlunos(aluno *alunos){
-    aluno *aux=alunos;
-    int cont=0;
-
-    while(aux!=NULL){
-        cont++;
-        aux=aux->prox;
-    }
-    return cont;
-}
-
 void verHistoricoCompleto(aluno* oAluno){
     aproveitamento *aux=oAluno->aproveitamento;
     while(aux!=NULL){
-        printf("notas: %f %f %f \nfrequencia: %f \n turma: %s",
+        printf("notas: %f %f %f \nfrequencia: %f \n turma: %s\n\n",
             aux->notas[0],
             aux->notas[1],
             aux->notas[2],
@@ -45,12 +50,12 @@ void verHistoricoCompleto(aluno* oAluno){
     }
 }
 
-void verHistoricoPorSemestre(aluno* oAluno, char semestre){
-    int cont=0;
+void verHistoricoPorSemestre(aluno* oAluno, int ano, char semestre){
+
     aproveitamento *aux=oAluno->aproveitamento;
     while(aux!=NULL){
-        if(((aux->turma)->semestre) == semestre){
-            printf("notas: %f %f %f \nfrequencia: %f \n turma: %s",
+        if(((aux->turma)->semestre) == semestre && aux->turma->ano==ano){
+            printf("notas: %f %f %f \nfrequencia: %f \n turma: %s\n\n",
                 aux->notas[0],
                 aux->notas[1],
                 aux->notas[2],
@@ -58,52 +63,27 @@ void verHistoricoPorSemestre(aluno* oAluno, char semestre){
                 ((aux->turma)->disciplina)->nome);
         }
         aux=aux->prox;
-        cont++;
     }
 }
 
 
 void insereAlunonaTurma(aluno* oAluno, turma* listaTurmas, int cod){
-    turma *aux=listaTurmas;
-    turma  *aTurma=NULL;
-    while(aux!=NULL){
-        if(((aux->disciplina)->cod)==cod){
-            aTurma=aux;
-        }
-        aux=aux->prox;
-    }
+    turma  *aTurma=buscaTurmaDisponivel(listaTurmas, cod);
+
     if(aTurma==NULL){
-        printf("\nTurma não encontrada!\n");
+        printf("Nenhuma turma encontrada ou disponivel!");
         return;
     }
+
     int i=0;
-    int j=10;
-    int z=5;
-    j=strcasecmp(aTurma->situacao,"P");
-    if(j!=0){
-        printf("Turmas indisponíveis para matricula\n");
-        return;
-    }
-    if(aTurma->alunos[i]==NULL){
-        aTurma->alunos[i]=oAluno;
-        for(i=1;i<45;i++){
-            aTurma->alunos[i]=NULL;
-        }
-        return;
-    }
-    for(i=0;i<45;i++){
-        if((aTurma->alunos[i])->ra==oAluno->ra){
+    for(; aTurma->alunos[i]!=NULL; i++){
+        if(strcmp(aTurma->alunos[i]->ra, oAluno->ra)==0){
             printf("Aluno já matriculado nesta turma\n");
             return;
-        }
-        if(aTurma->alunos[i]==NULL){
-            aTurma->alunos[i]=oAluno;
-            insereAproveitamentonoAluno(oAluno, aTurma);
-            return;
-        }
+        }  
     }
-    printf("Turma está cheia\n");
-    return;
+    
+    aTurma->alunos[i]=oAluno;
 }
 
 aluno* buscaAluno(aluno* listaAlunos, char ra[]){
@@ -116,3 +96,4 @@ aluno* buscaAluno(aluno* listaAlunos, char ra[]){
     }
     return NULL;
 }
+

@@ -99,12 +99,12 @@ disciplina* insereDisciplina(disciplina *listaDisciplina, int codigo, int cargaH
     no->prox=NULL;
 
     if(listaDisciplina==NULL){
-        listaDisciplina=aux;
+        listaDisciplina=no;
         return listaDisciplina;
     }
 
     while(aux->prox!=NULL) {
-        if(aux->codigo == codigo){
+        if(aux->codigo == no->codigo){
             printf("Disciplina ja cadastrada! \n");
             free(no);
             return listaDisciplina;
@@ -133,14 +133,14 @@ professor* insereProfessor(professor *listaProfessor,char nome[80], int anoEntra
     }
     
     while(aux->prox!=NULL){
-        if(strcmp(aux->nome, nome)==0){
+        if(strcmp(aux->nome, no->nome)==0){
             free(no);
             return listaProfessor;
         }
         aux=aux->prox;
     }
 
-    no->prox=no;
+    aux->prox=no;
     return listaProfessor;
 }
 
@@ -154,7 +154,11 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre, char si
     no->situacao=situacao;
     no->disciplina=aDisciplina;
     no->professor=oProfessor;
-    no->alunos=NULL;
+    
+    for(int i=0; i<45; i++){
+        no->alunos[i]=NULL;
+    }
+
     no->prox=NULL;
 
     if(listaTurmas==NULL){
@@ -175,24 +179,54 @@ turma* criaTurma(turma *listaTurmas, int codigo, int ano, char semestre, char si
     return listaTurmas;
 }
 
+int contaAlunos(aluno *alunos[]){
+    int cont=0;
+
+    for(int i=0; alunos[i]!=NULL; i++){
+        cont++;
+    }
+    return cont;
+}
+
 void imprimeTurma(turma* aTurma){
     if(aTurma==NULL){
         printf("Deu ruim!");
+        return;
     }
+    turma *aux=aTurma;
 
-    printf("codigo: %d \nano: %d \nsemestre: %c \nsituação: %c \nprofessor: %s \ndisciplina %s \n",
-       aTurma->codigo,
-       aTurma->ano,
-       aTurma->semestre,
-       aTurma->situacao,
-       (aTurma->professor)->nome,
-       (aTurma->disciplina)->nome);
+    while(aux!=NULL){
+      printf("codigo: %d \nano: %d \nsemestre: %c \nsituação: %c \n, alunos: %d\n\n",
+          aux->codigo,
+          aux->ano,
+          aux->semestre,
+          aux->situacao,
+          contaAlunos(aux->alunos));
+      aux=aux->prox;
+  }
 }
 
 turma* buscaTurma(turma* listaTurmas, int cod){
     turma *aux=listaTurmas;
     while(aux!=NULL){
         if(aux->codigo==cod){
+            return aux;
+        }
+        aux=aux->prox;
+    }
+    return NULL;
+}
+
+turma* buscaTurmaDisponivel(turma* listaTurmas, int cod){
+
+    turma *aux=listaTurmas;
+
+    if(aux==NULL){
+        return NULL;
+    }
+
+    while(aux!=NULL){
+        if(aux->codigo==cod && aux->situacao=='P' && contaAlunos(aux->alunos) < 45 ){
             return aux;
         }
         aux=aux->prox;
@@ -236,3 +270,38 @@ disciplina* buscaDisciplina(disciplina* listaDisciplinas, int cod){
     }
     return NULL;
 }
+
+/*
+void imprimeTudo(aluno *alu, professor *pro, disciplina *dis, turma *tur){
+    aluno *alun = alu;
+    professor *prof = pro;
+    disciplina *disc = dis;
+    turma *turm = tur;
+
+    while(alun!=NULL){
+        printf("\naluno: %s\n", alun->nome);
+        alun=alun->prox;
+    }
+
+    printf("\n-----------------------------------\n");
+
+    while(prof!=NULL){
+        printf("\nprofessor: %s\n", prof->nome);
+        prof=prof->prox;
+    }
+
+    printf("\n-----------------------------------\n");
+
+    while(disc!=NULL){
+        printf("\ndisciplina: %d\n", disc->codigo);
+        disc=disc->prox;
+    }
+
+    printf("\n-----------------------------------\n");
+
+    while(turm!=NULL){
+        printf("\nturma: %d\n", turm->ano);
+        turm=turm->prox;
+    }
+    printf("\n-----------------------------------\n"); 
+} */

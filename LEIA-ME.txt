@@ -1,0 +1,12 @@
+descompacte o arquivo
+
+entre no diretorio onde se encontram a pasta
+
+digite no terminal: cd TRABFINAL-RA2057468-RA2097702
+
+depois digite: gcc main.c 
+
+em seguida digite: ./a.out
+
+pronto!
+

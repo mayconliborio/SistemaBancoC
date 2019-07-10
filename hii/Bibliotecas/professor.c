@@ -4,10 +4,10 @@ void inserirNotas(aluno *oAluno, float aNota, turma *aTurma, int ordemNota){
     int j;
     int n;
     for(j=0;j<45;j++){
-        if((aTurma->alunos[j]!=NULL){
+        if(aTurma->alunos[j]!=NULL){
             n=strcasecmp((aTurma->alunos[j])->ra,oAluno->ra);
             if(n==0){
-                    tipoAproveitamento *aux=oAluno->aproveitamento;
+                    aproveitamento *aux=oAluno->aproveitamento;
                      
                     while(aux!=NULL){
                         if((aux->turma)->codigo==aTurma->codigo)
@@ -27,15 +27,15 @@ void alterarNotas(aluno *oAluno, float novaNota,turma *aTurma,int ordemNota){
     int j;
     int n;
     for(j=0;j<45;j++){
-        if((aTurma->alunos[j]!=NULL){
+        if(aTurma->alunos[j]!=NULL){
             n=strcasecmp((aTurma->alunos[j])->ra,oAluno->ra);
             if(n==0){
-                    tipoAproveitamento *aux=oAluno->aproveitamento;
+                    aproveitamento *aux=oAluno->aproveitamento;
                      
                     while(aux!=NULL){
                         if((aux->turma)->codigo==aTurma->codigo)
                         {   if(aux->notas[ordemNota]!=-1){
-                                aux->notas[ordemNota]=aNota;
+                                aux->notas[ordemNota]=novaNota;
                                 return;
                             }
                             printf("\nA nota não existe para ser alterada!\n");
@@ -53,10 +53,10 @@ void inserirFrequencia(aluno *oAluno,turma *aTurma){
     int j;
     int n;
     for(j=0;j<45;j++){
-        if((aTurma->alunos[j]!=NULL){
+        if(aTurma->alunos[j]!=NULL){
             n=strcasecmp((aTurma->alunos[j])->ra,oAluno->ra);
             if(n==0){
-                    tipoAproveitamento *aux=oAluno->aproveitamento;
+                    aproveitamento *aux=oAluno->aproveitamento;
                      
                     while(aux!=NULL){
                         if((aux->turma)->codigo==aTurma->codigo)
@@ -72,14 +72,14 @@ void inserirFrequencia(aluno *oAluno,turma *aTurma){
     printf("\nAluno não cadastrado nesta turma!\n");
 }
 
-void alterarFrequencia(aluno *oAluno,turma *aTurma, float novaFrenquencia){
+void alterarFrequencia(aluno *oAluno,turma *aTurma, float novaFrequencia){
     int j;
     int n;
     for(j=0;j<45;j++){
-        if((aTurma->alunos[j]!=NULL){
+        if(aTurma->alunos[j]!=NULL){
             n=strcasecmp((aTurma->alunos[j])->ra,oAluno->ra);
             if(n==0){
-                    tipoAproveitamento *aux=oAluno->aproveitamento;
+                    aproveitamento *aux=oAluno->aproveitamento;
                      
                     while(aux!=NULL){
                         if((aux->turma)->codigo==aTurma->codigo)
@@ -99,10 +99,10 @@ void desempenhoAlunoSemestre(aluno *oAluno,turma *aTurma){
     int j;
     int n;
     for(j=0;j<45;j++){
-        if((aTurma->alunos[j]!=NULL){
+        if(aTurma->alunos[j]!=NULL){
             n=strcasecmp((aTurma->alunos[j])->ra,oAluno->ra);
             if(n==0){
-                    tipoAproveitamento *aux=oAluno->aproveitamento;
+                    aproveitamento *aux=oAluno->aproveitamento;
                      
                     while(aux!=NULL){
                         if((aux->turma)->codigo==aTurma->codigo)
@@ -146,7 +146,7 @@ void desempenhoTurmaSemestre(turma *aTurma){
             }
             printf("\nNota do aluno: %sProva1:%f\nProva2:%f\nProva3:%f",
             (aTurma->alunos[i])->nome,
-            (aux2->notas[0],aux2->notas[1],aux2->notas[3]);
+            aux2->notas[0],aux2->notas[1],aux2->notas[3]);
         }
         else{
             printf("\nFim de Turma\n");
@@ -256,14 +256,14 @@ void relatorioCompleto(turma *aTurma){
                 if(m>=6){
                     printf("\nNota do aluno: %sProva1:%f\nProva2:%f\nProva3:%f",
                     (aTurma->alunos[i])->nome,
-                    (aux2->notas[0],aux2->notas[1],aux2->notas[3]);
+                    aux2->notas[0],aux2->notas[1],aux2->notas[3]);
                     printf("\nFrequencia do aluno: %s%f horas aulas assistidas\n",(aTurma->alunos[i])->nome,aux2->frequencia);
                     printf("\nAluno: %s aprovado!\n",(aTurma->alunos[i])->nome);
                 }
                 else{
                     printf("\nNota do aluno: %sProva1:%f\nProva2:%f\nProva3:%f",
                     (aTurma->alunos[i])->nome,
-                    (aux2->notas[0],aux2->notas[1],aux2->notas[3]);
+                    aux2->notas[0],aux2->notas[1],aux2->notas[3]);
                     printf("\nFrequencia do aluno: %s%f horas aulas assistidas\n",(aTurma->alunos[i])->nome,aux2->frequencia);
                     printf("\nAluno: %s reprovado!\n",(aTurma->alunos[i])->nome);
                 }

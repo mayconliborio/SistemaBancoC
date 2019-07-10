@@ -24,7 +24,7 @@ int verificaLogin(char login[], char senha[]){
 	char login1[80], senha1[80];
 	FILE *arq;
 
-	arq = fopen("loginAlunos.txt", "r");
+	arq = fopen("Login/loginAlunos.txt", "r");
 
 	while (!feof(arq)){
 		fscanf(arq, "%s %s\n", login1, senha1);
@@ -38,7 +38,7 @@ int verificaLogin(char login[], char senha[]){
 	}
 	fclose(arq);
 
-	arq = fopen("loginProfessores.txt", "r");
+	arq = fopen("Login/loginProfessores.txt", "r");
 
 	while (!feof(arq)){
 		fgets(senha1, 80, arq);
@@ -54,7 +54,7 @@ int verificaLogin(char login[], char senha[]){
 	}
 	fclose(arq);
 
-	arq = fopen("loginGerenciadores.txt", "r");
+	arq = fopen("Login/loginGerenciadores.txt", "r");
 
 	while (!feof(arq)){
 		fscanf(arq, "%s %s\n", login1, senha1);
@@ -77,7 +77,7 @@ int cadastroLogin(int a, char nome[], char login[], char senha[]){
 		int v=verificaLogin(login, senha);
 
 		if(v==0){
-			arq = fopen("loginAlunos.txt", "a+");
+			arq = fopen("Login/loginAlunos.txt", "a+");
 			if (arq == NULL){
 				printf("\n\nErro ao carregar arquivo!");
 				exit(1);
@@ -98,7 +98,7 @@ int cadastroLogin(int a, char nome[], char login[], char senha[]){
 		int v=verificaLogin(login, senha);
 
 		if(v==0){
-			arq = fopen("loginProfessores.txt", "a+");
+			arq = fopen("Login/loginProfessores.txt", "a+");
 			if (arq == NULL){
 				printf("\n\nErro ao carregar arquivo!");
 				exit(1);
@@ -117,7 +117,7 @@ int cadastroLogin(int a, char nome[], char login[], char senha[]){
 	if (a == 3){
 		int v=verificaLogin(login, senha);
 		if(v==0){
-			arq = fopen("loginGerenciadores.txt", "a+");
+			arq = fopen("Login/loginGerenciadores.txt", "a+");
 			if (arq == NULL){
 				printf("\n\nErro ao carregar arquivo!\n\nEncerrando o programa!");
 				exit(1);
@@ -155,4 +155,106 @@ char *cifraReversa(char string[]){
 	}
 
 	return string;
+}
+
+typedef struct login{
+	char login[11];
+	char senha[80];
+	struct login *prox;
+}login;
+
+login *alocaLogin(){
+	login *no=(login*)malloc(sizeof(login));
+}
+
+void insereLogin(login **lista, char log[], char sen[]){
+	login *aux=(*lista);
+	login *no=alocaLogin();
+
+	strcpy(no->login, log);
+	strcpy(no->senha, sen);
+	no->prox=NULL;
+
+	if((*lista)==NULL){
+		(*lista)=no;
+		return;
+	}
+	
+	if(aux->prox!=NULL){
+		aux=aux->prox;
+	}
+
+	aux->prox=no;
+}
+
+void carregaLogin(login **lista){
+	FILE *arq=fopen("Login/loginAlunos.txt", "r");
+	if(arq==NULL){
+		exit(1);
+	}
+
+	char log[11], sen[80];
+
+	while(!feof(arq)){
+		fscanf(arq, "%s %s\n", log, sen);
+		insereLogin(&(*lista), log, sen);
+	}
+
+	fclose(arq);
+}
+
+login *buscaLogin(login **lista, char log[], char sen[]){
+	login *aux=(*lista);
+
+	if(aux==NULL){
+		return NULL;
+	}
+
+	while(aux!=NULL){
+		if(strcmp(aux->login, log)==0 && strcmp(aux->senha, sen)==0){
+			return aux;
+		}
+		aux=aux->prox;
+	}
+	return NULL;
+}
+
+void alteraLogin(login **lista, login *alt, char nov[]){
+	if(alt==NULL){
+		return;
+	}
+	strcpy(alt->senha, nov);
+}
+
+void salvaLogin(login **lista){
+	FILE *arq=fopen("Login/loginAlunos.txt", "w");
+	login *aux=(*lista);
+
+	if(arq==NULL){
+		exit(1);
+	}
+
+	if((*lista)==NULL){
+		fclose(arq);
+		return;
+	}
+
+	while(aux!=NULL){
+		fprintf(arq, "%s %s\n", aux->login, aux->senha);
+		aux=aux->prox;
+	}
+
+	fclose(arq);
+}
+
+void alterarSenha(char log[], char ant[], char nov[]){
+	login *lista=NULL;
+
+	carregaLogin(&lista);
+
+	if(lista!=NULL){
+		alteraLogin(&lista, buscaLogin(&lista, log, ant), nov);
+		salvaLogin(&lista);
+	}
+
 }

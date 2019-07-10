@@ -1,0 +1,5 @@
+123 96 Algoritmos NULL
+456 60 Estrutura1 NULL
+567 48 Redes NULL
+987 60 Arquitetura NULL
+396 96 Calculo1 NULL

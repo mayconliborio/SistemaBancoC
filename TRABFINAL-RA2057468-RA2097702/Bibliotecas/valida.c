@@ -43,3 +43,10 @@ char corrigeString(char string[]){
 		string[x]='\0';
 	}
 }
+
+void limpaBuffer(){
+    int c = 0;
+    while ((c = getchar()) != '\n' && c != EOF) {	
+    }
+    return;
+}
